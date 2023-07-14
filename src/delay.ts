@@ -195,9 +195,8 @@ function onRenderCombatTracker(tracker, html: JQuery, data) {
   const combat = game.combat
   if (!combat) return
 
-  let combatant_html = modHTML(".combatant-actor"); 
 
-  html.find(combatant_html).each((i, e) => {
+  html.find(modHTML(".combatant-actor")).each((i, e) => {
     const id = e.dataset[modHTML("combatantId")]
     if (!id) return
     const c = combat.combatants.get(id)
@@ -234,8 +233,8 @@ function modHTML(html: string) {
   if (!game.modules.get('combat-tracker-dock')?.active) return html;
 
   switch (html) {
-    case ".combatant.actor":
-      return ".combatant-portait";
+    case ".combatant-actor":
+      return ".combatant-portrait";
     case "combatantId":
       return "combatant-id";
     case ".token-initiative":
