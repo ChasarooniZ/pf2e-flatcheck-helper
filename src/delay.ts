@@ -194,7 +194,7 @@ function onRenderCombatTracker(tracker, html: JQuery, data) {
   if (!Module.delayEnabled) return
   const combat = game.combat
   if (!combat) return
-  if (!!game.modules.get('combat-tracker-dock')?.active) html = $(".combat-dock");
+  if (!!game.modules.get('combat-tracker-dock')?.active) html = $(document);
 
   html.find(modHTML(".combatant-actor")).each((i, e) => {
     const id = e.dataset[modHTML("combatantId")]
