@@ -179,8 +179,8 @@ function drawButton(type: "delay" | "return", combatentHtml: JQuery, combatant: 
     `)
   }
 
-  const div = combatentHtml.find(".token-initiative")
-  div.find(".initiative").hide()
+  const div = combatentHtml.find(modHTML(".token-initiative"))
+  div.find(modHTML(".initiative")).hide()
   div.append(button)
 
   button.on("click", (e) => {
@@ -195,8 +195,10 @@ function onRenderCombatTracker(tracker, html: JQuery, data) {
   const combat = game.combat
   if (!combat) return
 
-  html.find(".combatant.actor").each((i, e) => {
-    const id = e.dataset["combatantId"]
+  let combatant_html = modHTML(".combatant-actor"); 
+
+  html.find(combatant_html).each((i, e) => {
+    const id = e.dataset[modHTML("combatantId")]
     if (!id) return
     const c = combat.combatants.get(id)
     if (!c || !c.isOwner) return
@@ -226,4 +228,21 @@ export function setupDelay() {
     )
       delayButton()
   })
+}
+
+function modHTML(html: string) {
+  if (!game.modules.get('combat-tracker-dock')?.active) return html;
+
+  switch (html) {
+    case ".combatant.actor":
+      return ".combatant-portait";
+    case "combatantId":
+      return "combatant-id";
+    case ".token-initiative":
+      return ".portrait-initiative"
+    case ".initiative":
+      return ".portrait-initiative-text"
+    default:
+      return "";
+  }
 }
